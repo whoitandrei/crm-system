@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.cglib.core.Local;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -29,7 +30,7 @@ public class Transaction {
 
     @NotNull(message = "amount is mandatory")
     @Column(name = "amount", nullable = false)
-    private int amount;
+    private BigDecimal amount;
 
     @NotNull(message = "payment type is mandatory")
     @Enumerated(EnumType.STRING)
@@ -43,7 +44,7 @@ public class Transaction {
 
     public Transaction() {}
 
-    public Transaction(Seller seller, int amount, String paymentType, LocalDateTime transactionDate) {
+    public Transaction(Seller seller, BigDecimal amount, String paymentType, LocalDateTime transactionDate) {
         this.seller = seller;
         this.amount = amount;
         this.paymentType = paymentType;

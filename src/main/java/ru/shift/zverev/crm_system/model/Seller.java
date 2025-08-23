@@ -35,8 +35,6 @@ public class Seller {
     @Column(name = "registration_date", nullable = false)
     private LocalDateTime registrationDate;
 
-    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Transaction> transactions = new ArrayList<>();
 
 
 
@@ -48,12 +46,10 @@ public class Seller {
     }
 
     public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
         transaction.setSeller(this);
     }
 
     public void removeTransaction(Transaction transaction) {
-        transactions.remove(transaction);
         transaction.setSeller(null);
     }
 
