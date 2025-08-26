@@ -1,6 +1,8 @@
 package ru.shift.zverev.crm_system.dto;
 
 import lombok.Data;
+import ru.shift.zverev.crm_system.model.Seller;
+import ru.shift.zverev.crm_system.model.Transaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,4 +28,7 @@ public class TransactionDto {
         this.paymentType = paymentType;
         this.transactionDate = transactionDate;
     }
+
+
+
 }

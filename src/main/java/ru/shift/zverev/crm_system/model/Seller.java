@@ -6,11 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -42,6 +39,13 @@ public class Seller {
 
     public Seller(String name, LocalDateTime registrationDate) {
         this.name = name;
+        this.registrationDate = registrationDate;
+    }
+
+    public Seller(Long id, String name, String contactInfo, LocalDateTime registrationDate) {
+        this.id = id;
+        this.name = name;
+        this.contactInfo = contactInfo;
         this.registrationDate = registrationDate;
     }
 

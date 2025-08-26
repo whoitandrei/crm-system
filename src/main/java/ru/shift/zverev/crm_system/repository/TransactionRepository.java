@@ -1,6 +1,7 @@
 package ru.shift.zverev.crm_system.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,5 +28,19 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             "ORDER BY total DESC")
     List<Object[]> findTopSellersByPeriod(@Param("start") LocalDateTime start,
                                           @Param("end") LocalDateTime end);
+
+    @Query("SELECT t FROM Transaction t WHERE t.seller.id = :sellerId AND t.transactionDate BETWEEN :start AND :end")
+    List<Transaction> findBySellerIdAndDateRange(@Param("sellerId") Long sellerId,
+                                                 @Param("start") LocalDateTime start,
+                                                 @Param("end") LocalDateTime end);
+
+    @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t " +
+            "WHERE t.seller.id = :sellerId AND t.transactionDate BETWEEN :start AND :end")
+    BigDecimal getTotalAmountBySellerIdAndPeriod(@Param("sellerId") Long sellerId,
+                                                  @Param("start") LocalDateTime start,
+                                                  @Param("end") LocalDateTime end);
+
+    @Query("SELECT t FROM Transaction t WHERE t.seller.id = :sellerId")
+    List<Transaction> getAllTransactionsBySellerId(@Param("sellerId") Long sellerId);
 
 }

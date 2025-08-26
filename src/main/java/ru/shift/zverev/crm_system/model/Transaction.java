@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -15,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Transaction {
-    public enum paymentType {
+    public enum PaymentType {
         CARD, CASH
     }
 
@@ -24,7 +22,7 @@ public class Transaction {
     private Long id;
 
     @NotNull(message = "Seller is mandatory")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="seller_id", nullable = false, foreignKey = @ForeignKey(name = "fk_transaction_seller"))
     private Seller seller;
 
@@ -35,7 +33,7 @@ public class Transaction {
     @NotNull(message = "payment type is mandatory")
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_type", nullable = false, length = 20)
-    private String paymentType;
+    private PaymentType paymentType;
 
     @NotNull(message = "transaction date is mandatory")
     @PastOrPresent(message = "transaction date cannot be in the future")
@@ -44,11 +42,18 @@ public class Transaction {
 
     public Transaction() {}
 
-    public Transaction(Seller seller, BigDecimal amount, String paymentType, LocalDateTime transactionDate) {
+    public Transaction(Seller seller, BigDecimal amount, PaymentType paymentType, LocalDateTime transactionDate) {
         this.seller = seller;
         this.amount = amount;
         this.paymentType = paymentType;
         this.transactionDate = transactionDate;
     }
 
+    public Transaction(Long id, Seller seller, BigDecimal amount, PaymentType paymentType, LocalDateTime transactionDate) {
+        this.id = id;
+        this.seller = seller;
+        this.amount = amount;
+        this.paymentType = paymentType;
+        this.transactionDate = transactionDate;
+    }
 }
