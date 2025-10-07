@@ -84,6 +84,20 @@ cd crm-system
 .\gradlew bootRun
 ```
 
+ИЛИ 
+
+```
+# Клонировать репозиторий
+git clone https://github.com/whoitandrei/crm-system
+cd crm-system
+
+# Сборка проекта
+gradle build
+
+# Запуск приложения
+gradle bootRun
+```
+
 Приложение будет доступно по адресу: `http://localhost:8080`
 
 ## API Документация
@@ -105,9 +119,11 @@ http://localhost:8080/api
 ```powershell
 # Способ 1 (по умолчанию)
 .\gradlew bootRun
+gradle BootRun
 
 # Способ 2 (через аргументы)
 .\gradlew bootRun --args='--spring.profiles.active=h2'
+gradle bootRun --args='--spring.profiles.active=h2'
 ```
 
 ### PRODUCTION (профиль `postgres`)
